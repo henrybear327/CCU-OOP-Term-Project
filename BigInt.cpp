@@ -1,13 +1,15 @@
 #include "BigInt.h"
 
+namespace BigIntNamespace
+{
 // constructor
-BigInt::BigInt::BigInt()
+BigInt::BigInt()
 {
     // set to 0
     data.push_back(0);
     isNegative = false;
 }
-BigInt::BigInt::BigInt(int number)
+BigInt::BigInt(int number)
 {
     // get sign
     if (number < 0) {
@@ -24,7 +26,7 @@ BigInt::BigInt::BigInt(int number)
     }
 }
 
-BigInt::BigInt::BigInt(string number)
+BigInt::BigInt(string number)
 {
     if (number[0] == '-')
         isNegative = true;
@@ -48,7 +50,7 @@ BigInt::BigInt::BigInt(string number)
 // // member function
 // BigInt factorial() const;
 
-string BigInt::BigInt::toString() const
+string BigInt::toString() const
 {
     string res = "";
 
@@ -58,4 +60,11 @@ string BigInt::BigInt::toString() const
         res += data[i] + '0';
 
     return res;
+}
+
+ostream &operator<<(ostream &out, const BigInt &other)
+{
+    out << other.toString();
+    return out;
+}
 }

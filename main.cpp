@@ -1,11 +1,23 @@
 #include <iostream>
-#include "BigInt.h"
-
 using namespace std;
+
+#include "color.h"
+
+#include "BigInt.h"
+using namespace BigIntNamespace;
 
 int main()
 {
     cout << "Project 5" << endl;
+#ifdef DEBUG
+    if (DEBUG > 0) {
+        cout << RED "Debug mode is enabled" RESET << endl;
+        cout << RED "Debug level is " << DEBUG << "" RESET << endl;
+    }
+#endif
+
+    BigInt bigInt1;
+    cout << bigInt1 << endl;
 
     return 0;
 }

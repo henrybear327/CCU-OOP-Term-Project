@@ -4,10 +4,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
 using namespace std;
 
-namespace BigInt
+#include "color.h"
+
+namespace BigIntNamespace
 {
 class BigInt
 {
@@ -36,11 +37,5 @@ private:
     vector<int> data;
     string toString() const;
 };
-
-ostream &operator<<(ostream &out, const BigInt &other)
-{
-    out << other.toString() << endl;
-    return out;
-}
 }
 #endif
