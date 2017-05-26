@@ -36,6 +36,7 @@ private:
     bool isNegative;
     vector<int> data;
     string toString() const;
+    string toString(int len) const;
 };
 }
 #endif

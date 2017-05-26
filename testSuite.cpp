@@ -6,16 +6,13 @@ using namespace std;
 #include "BigInt.h"
 using namespace BigIntNamespace;
 
-int main()
+inline string printTF(bool res)
 {
-    cout << "Project 5" << endl;
-#ifdef DEBUG
-    if (DEBUG > 0) {
-        cout << RED "Debug mode is enabled" RESET << endl;
-        cout << RED "Debug level is " << DEBUG << "" RESET << endl << endl;
-    }
-#endif
+    return res ? "true" : "false";
+}
 
+void testBigIntConstructors()
+{
     cout << CYAN "Testing BigInt constructors" RESET << endl;
 
     {
@@ -53,6 +50,81 @@ int main()
     }
 
     cout << endl;
+}
+
+void testBigIntComparators()
+{
+    cout << CYAN "Testing BigInt < comparator" RESET << endl;
+
+    {
+        BigInt a(0), b(100);
+        cout << GREEN "The result should be true (0 < 100). "
+             << BLUE "Result = " << printTF((a < b)) << RESET << endl;
+    }
+
+    {
+        BigInt a(0), b(-100);
+        cout << GREEN "The result should be false (0 < -100). "
+             << BLUE "Result = " << printTF((a < b)) << RESET << endl;
+    }
+
+    {
+        BigInt a(0), b(0);
+        cout << GREEN "The result should be false (0 < 0). "
+             << BLUE "Result = " << printTF((a < b)) << RESET << endl;
+    }
+
+    {
+        BigInt a(-10000), b(100);
+        cout << GREEN "The result should be true (-10000 < 100). "
+             << BLUE "Result = " << printTF((a < b)) << RESET << endl;
+    }
+
+    {
+        BigInt a(100), b(-10000);
+        cout << GREEN "The result should be false (100 < -10000). "
+             << BLUE "Result = " << printTF((a < b)) << RESET << endl;
+    }
+
+    {
+        BigInt a(100), b(20000);
+        cout << GREEN "The result should be true (100 < 20000). "
+             << BLUE "Result = " << printTF((a < b)) << RESET << endl;
+    }
+
+    {
+        BigInt a(200), b(10000);
+        cout << GREEN "The result should be false (200 < 10000). "
+             << BLUE "Result = " << printTF((a < b)) << RESET << endl;
+    }
+
+    {
+        BigInt a(-100), b(-2000);
+        cout << GREEN "The result should be false (-100 < -2000). "
+             << BLUE "Result = " << printTF((a < b)) << RESET << endl;
+    }
+
+    {
+        BigInt a(-200), b(-100);
+        cout << GREEN "The result should be true (-200 < -100). "
+             << BLUE "Result = " << printTF((a < b)) << RESET << endl;
+    }
+
+    cout << endl;
+}
+
+int main()
+{
+    cout << "Project 5" << endl;
+#ifdef DEBUG
+    if (DEBUG > 0) {
+        cout << RED "Debug mode is enabled" RESET << endl;
+        cout << RED "Debug level is " << DEBUG << "" RESET << endl << endl;
+    }
+#endif
+
+    testBigIntConstructors();
+    testBigIntComparators();
 
     return 0;
 }
