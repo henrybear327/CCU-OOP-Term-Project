@@ -20,29 +20,36 @@ int main()
 
     {
         BigInt a;
-        cout << GREEN "The result should be 0. " << BLUE "Result = " << a << RESET << endl;
+        cout << GREEN "The result should be 0. " << BLUE "Result = " << a << RESET
+             << endl;
     }
 
     {
         BigInt bp(12345), bn(-12345);
-        cout << GREEN "The result should be 12345. " << BLUE "Result = " << bp << RESET << endl;
-        cout << GREEN "The result should be -12345. " << BLUE "Result = " << bn << RESET << endl;
+        cout << GREEN "The result should be 12345. " << BLUE "Result = " << bp
+             << RESET << endl;
+        cout << GREEN "The result should be -12345. " << BLUE "Result = " << bn
+             << RESET << endl;
     }
 
     {
         BigInt bp("12345"), bn("-12345");
-        cout << GREEN "The result should be 12345. " << BLUE "Result = " << bp << RESET << endl;
-        cout << GREEN "The result should be -12345. " << BLUE "Result = " << bn << RESET << endl;
+        cout << GREEN "The result should be 12345. " << BLUE "Result = " << bp
+             << RESET << endl;
+        cout << GREEN "The result should be -12345. " << BLUE "Result = " << bn
+             << RESET << endl;
     }
 
     {
         BigInt bp(0);
-        cout << GREEN "The result should be 0. " << BLUE "Result = " << bp << RESET << endl;
+        cout << GREEN "The result should be 0. " << BLUE "Result = " << bp << RESET
+             << endl;
     }
 
     {
         BigInt bp("0");
-        cout << GREEN "The result should be 0. " << BLUE "Result = " << bp << RESET << endl;
+        cout << GREEN "The result should be 0. " << BLUE "Result = " << bp << RESET
+             << endl;
     }
 
     cout << endl;
