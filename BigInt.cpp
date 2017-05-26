@@ -22,10 +22,10 @@ BigInt::BigInt(int number)
     }
 
     // get number
-    while (number > 0) {
+    do {
         data.push_back(number % 10);
         number /= 10;
-    }
+    } while (number > 0);
 }
 
 BigInt::BigInt(string number)
