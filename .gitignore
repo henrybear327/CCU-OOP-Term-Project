@@ -1,3 +1,5 @@
 *.swp
 *.orig
 main
+*.o
+*.gch
