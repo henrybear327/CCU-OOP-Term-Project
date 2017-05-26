@@ -1,5 +1,7 @@
 all:
-	g++ -Wall -Wextra -std=c++11 -O2 main.cpp -o main
+	g++ -Wall -Wextra -std=c++11 -c BigInt.cpp -o BigInt.o
+	g++ -Wall -Wextra -std=c++11 -c main.cpp -o main.o
+	g++ -Wall -Wextra -std=c++11 BigInt.o main.o -o main
 
 test:
 	g++ -Wall -Wextra -std=c++11 -O2 testSuite.cpp -o testSuite

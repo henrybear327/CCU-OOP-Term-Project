@@ -26,8 +26,7 @@ public:
 
     bool operator<(const BigInt &other) const;
 
-    friend ostream &operator<<(ostream &out,
-                               const BigInt &other); // must be friend
+    friend ostream &operator<<(ostream &out, const BigInt &other);
 
     // member function
     BigInt factorial() const;
@@ -35,6 +34,13 @@ public:
 private:
     bool isNegative;
     vector<int> data;
+    string toString() const;
 };
+
+ostream &operator<<(ostream &out, const BigInt &other)
+{
+    out << other.toString() << endl;
+    return out;
+}
 }
 #endif
