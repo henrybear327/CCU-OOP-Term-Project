@@ -1,4 +1,5 @@
 #include "BigInt.h"
+#include "color.h"
 
 namespace BigIntNamespace
 {
@@ -9,6 +10,7 @@ BigInt::BigInt()
     data.push_back(0);
     isNegative = false;
 }
+
 BigInt::BigInt(int number)
 {
     // get sign
@@ -47,6 +49,12 @@ BigInt::BigInt(string number)
 //
 // bool operator<(const BigInt &other) const;
 
+ostream &operator<<(ostream &out, const BigInt &other)
+{
+    out << other.toString();
+    return out;
+}
+
 // // member function
 // BigInt factorial() const;
 
@@ -60,11 +68,5 @@ string BigInt::toString() const
         res += data[i] + '0';
 
     return res;
-}
-
-ostream &operator<<(ostream &out, const BigInt &other)
-{
-    out << other.toString();
-    return out;
 }
 }

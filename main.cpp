@@ -16,8 +16,5 @@ int main()
     }
 #endif
 
-    BigInt bigInt1;
-    cout << bigInt1 << endl;
-
     return 0;
 }

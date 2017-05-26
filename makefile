@@ -2,13 +2,13 @@ DEBUGMODE=-DDEBUG=2
 
 # different types of build
 normal: BigInt.o main.o
-	g++ -Wall -Wextra -std=c++11 BigInt.o main.o -o normal
+	g++ -Wall -Wextra -std=c++11 -O2 BigInt.o main.o -o normal
 
 debug: BigIntDebug.o mainDebug.o
 	g++ -Wall -Wextra -std=c++11 BigIntDebug.o mainDebug.o -o debug
 
-test:
-	g++ -Wall -Wextra -std=c++11 -O2 testSuite.cpp -o test
+test: BigIntDebug.o testSuite.o
+	g++ -Wall -Wextra -std=c++11 BigIntDebug.o testSuite.o -o test
 
 # dependicies
 # debug versions
@@ -17,6 +17,9 @@ BigIntDebug.o: BigInt.h BigInt.cpp
 
 mainDebug.o: main.cpp
 	g++ -Wall -Wextra -std=c++11 $(DEBUGMODE) -c main.cpp -o mainDebug.o
+
+testSuite.o: testSuite.cpp
+	g++ -Wall -Wextra -std=c++11 $(DEBUGMODE) -c testSuite.cpp -o testSuite.o
 
 #normal versions
 BigInt.o: BigInt.h BigInt.cpp
