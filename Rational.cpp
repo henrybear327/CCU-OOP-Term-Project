@@ -17,12 +17,12 @@ Rational::Rational()
 
 Rational::Rational(int a, int b)
 {
-    bool isNegativeSign = (long long) a * b >= 0 ? false : true;
+    bool isNegativeSign = (long long)a * b >= 0 ? false : true;
     a = abs(a);
     b = abs(b);
     int g = gcd(a, b);
 
-    if(isNegativeSign)
+    if (isNegativeSign)
         a *= -1;
     numerator = BigInt(a / g);
     denominator = BigInt(b / g);
@@ -31,16 +31,31 @@ Rational::Rational(int a, int b)
 Rational::Rational(BigInt a, BigInt b)
 {
     bool isNegativeSign = BigInt(0) <= a * b ? false : true;
-    if(a < BigInt(0))
+    if (a < BigInt(0))
         a = a * BigInt(-1);
-    if(b < BigInt(0))
+    if (b < BigInt(0))
         b = b * BigInt(-1);
 
     BigInt g = gcd(a, b);
     numerator = a / g;
-    if(isNegativeSign)
+    if (isNegativeSign)
         numerator = numerator * BigInt(-1);
     denominator = b / g;
+}
+
+const BigInt Rational::getNumerator() const
+{
+    return numerator;
+}
+
+const BigInt Rational::getDenominator() const
+{
+    return denominator;
+}
+
+bool Rational::isNegative() const
+{
+    return numerator < BigInt(0);
 }
 
 const Rational Rational::operator+(const Rational &other) const

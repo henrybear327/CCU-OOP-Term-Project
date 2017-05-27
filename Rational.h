@@ -26,6 +26,10 @@ public:
 
     friend ostream &operator<<(ostream &out, const Rational &other);
 
+    const BigInt getNumerator() const;
+    const BigInt getDenominator() const;
+    bool isNegative() const;
+
 private:
     BigInt numerator;
     BigInt denominator;

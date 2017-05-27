@@ -528,67 +528,67 @@ void autoTestBigIntModString()
 
 void testRationalConstructor()
 {
-        cout << CYAN "Testing Rational constructors" RESET << endl;
+    cout << CYAN "Testing Rational constructors" RESET << endl;
 
-        {
-            Rational a;
-            cout << GREEN "The result should be 0 / 1. " << BLUE "Result = " << a << RESET
-                 << endl;
-        }
+    {
+        Rational a;
+        cout << GREEN "The result should be 0 / 1. " << BLUE "Result = " << a
+             << RESET << endl;
+    }
 
-        {
-            Rational a(2, 8);
-            cout << GREEN "The result should be 1 / 4. " << BLUE "Result = " << a
-                 << RESET << endl;
-        }
+    {
+        Rational a(2, 8);
+        cout << GREEN "The result should be 1 / 4. " << BLUE "Result = " << a
+             << RESET << endl;
+    }
 
-        {
-            Rational a(-2, 8);
-            cout << GREEN "The result should be -1 / 4. " << BLUE "Result = " << a
-                 << RESET << endl;
-        }
+    {
+        Rational a(-2, 8);
+        cout << GREEN "The result should be -1 / 4. " << BLUE "Result = " << a
+             << RESET << endl;
+    }
 
-        {
-            Rational a(2, -8);
-            cout << GREEN "The result should be -1 / 4. " << BLUE "Result = " << a
-                 << RESET << endl;
-        }
+    {
+        Rational a(2, -8);
+        cout << GREEN "The result should be -1 / 4. " << BLUE "Result = " << a
+             << RESET << endl;
+    }
 
-        {
-            Rational a(-2, -8);
-            cout << GREEN "The result should be 1 / 4. " << BLUE "Result = " << a
-                 << RESET << endl;
-        }
+    {
+        Rational a(-2, -8);
+        cout << GREEN "The result should be 1 / 4. " << BLUE "Result = " << a
+             << RESET << endl;
+    }
 
-        {
-            BigInt b(2), c(8);
-            Rational a(b, c);
-            cout << GREEN "The result should be 1 / 4. " << BLUE "Result = " << a
-                 << RESET << endl;
-        }
+    {
+        BigInt b(2), c(8);
+        Rational a(b, c);
+        cout << GREEN "The result should be 1 / 4. " << BLUE "Result = " << a
+             << RESET << endl;
+    }
 
-        {
-            BigInt b(-2), c(8);
-            Rational a(b, c);
-            cout << GREEN "The result should be -1 / 4. " << BLUE "Result = " << a
-                 << RESET << endl;
-        }
+    {
+        BigInt b(-2), c(8);
+        Rational a(b, c);
+        cout << GREEN "The result should be -1 / 4. " << BLUE "Result = " << a
+             << RESET << endl;
+    }
 
-        {
-            BigInt b(2), c(-8);
-            Rational a(b, c);
-            cout << GREEN "The result should be -1 / 4. " << BLUE "Result = " << a
-                 << RESET << endl;
-        }
+    {
+        BigInt b(2), c(-8);
+        Rational a(b, c);
+        cout << GREEN "The result should be -1 / 4. " << BLUE "Result = " << a
+             << RESET << endl;
+    }
 
-        {
-            BigInt b(-2), c(-8);
-            Rational a(b, c);
-            cout << GREEN "The result should be 1 / 4. " << BLUE "Result = " << a
-                 << RESET << endl;
-        }
+    {
+        BigInt b(-2), c(-8);
+        Rational a(b, c);
+        cout << GREEN "The result should be 1 / 4. " << BLUE "Result = " << a
+             << RESET << endl;
+    }
 
-        cout << endl;
+    cout << endl;
 }
 
 void testRationalAddition()
