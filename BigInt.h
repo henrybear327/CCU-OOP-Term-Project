@@ -31,6 +31,7 @@ public:
 
     bool operator<(const BigInt &other) const;
     bool operator<=(const BigInt &other) const;
+    bool operator==(const BigInt &other) const;
 
     friend ostream &operator<<(ostream &out, const BigInt &other);
 
@@ -47,5 +48,8 @@ private:
     // const BigInt negate() const;
     string toString(int len) const;
 };
+
+const BigInt gcd(const BigInt a, const BigInt b);
+int gcd(const int a, const int b);
 } // namespace BigIntNamespace
 #endif

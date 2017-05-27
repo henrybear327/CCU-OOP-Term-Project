@@ -7,8 +7,8 @@ normal: BigInt.o Rational.o main.o
 debug: BigIntDebug.o RationalDebug.o mainDebug.o
 	g++ -Wall -Wextra -Wshadow -std=c++11 BigIntDebug.o RationalDebug.o mainDebug.o -o debug
 
-test: BigInt.o testSuite.o
-	g++ -Wall -Wextra -Wshadow -std=c++11 BigInt.o testSuite.o -o test
+test: BigInt.o Rational.o testSuite.o
+	g++ -Wall -Wextra -Wshadow -std=c++11 -O2 BigInt.o Rational.o testSuite.o -o test
 
 # dependicies
 # debug versions
@@ -26,13 +26,13 @@ testSuite.o: testSuite.cpp
 
 #normal versions
 BigInt.o: BigInt.h BigInt.cpp
-	g++ -Wall -Wextra -Wshadow -std=c++11 -c BigInt.cpp -o BigInt.o
+	g++ -Wall -Wextra -Wshadow -std=c++11 -O2 -c BigInt.cpp -o BigInt.o
 
 Rational.o: Rational.h Rational.cpp
-	g++ -Wall -Wextra -Wshadow -std=c++11 -c Rational.cpp -o Rational.o
+	g++ -Wall -Wextra -Wshadow -std=c++11 -O2 -c Rational.cpp -o Rational.o
 
 main.o: main.cpp
-	g++ -Wall -Wextra -Wshadow -std=c++11 -c main.cpp -o main.o
+	g++ -Wall -Wextra -Wshadow -std=c++11 -O2 -c main.cpp -o main.o
 
 # helpers
 format:

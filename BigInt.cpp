@@ -279,6 +279,21 @@ bool BigInt::operator<=(const BigInt &other) const
     }
 }
 
+bool BigInt::operator==(const BigInt &other) const
+{
+    if (this->isNegative != other.isNegative)
+        return false;
+
+    if (this->data.size() != other.data.size())
+        return false;
+
+    for (int i = 0; i < (int)this->data.size(); i++)
+        if (this->data[i] != other.data[i])
+            return false;
+
+    return true;
+}
+
 ostream &operator<<(ostream &out, const BigInt &other)
 {
     out << other.toString();
@@ -305,5 +320,15 @@ string BigInt::toString() const
         res += data[i] + '0';
 
     return res;
+}
+
+const BigInt gcd(const BigInt a, const BigInt b)
+{
+    return a == BigInt(0) ? b : gcd(b % a, a);
+}
+
+int gcd(const int a, const int b)
+{
+    return a == 0 ? b : gcd(b % a, a);
 }
 } // namespace BigIntNamespace

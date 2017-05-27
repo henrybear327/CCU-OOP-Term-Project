@@ -5,13 +5,14 @@
 #include <iostream>
 using namespace std;
 
-#include "color.h"
 #include "BigInt.h"
+#include "color.h"
 using namespace BigIntNamespace;
 
 namespace RationalNamespace
 {
-class Rational {
+class Rational
+{
 public:
     Rational();
     Rational(int a, int b);
@@ -28,9 +29,7 @@ public:
 private:
     BigInt numerator;
     BigInt denominator;
-
-    BigInt gcd(BigInt a, BigInt b);
 };
-}
+} // namespace RationalNamespace
 
 #endif

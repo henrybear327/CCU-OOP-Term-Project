@@ -7,6 +7,9 @@ using namespace std;
 #include "BigInt.h"
 using namespace BigIntNamespace;
 
+#include "Rational.h"
+using namespace RationalNamespace;
+
 inline string printTF(bool res)
 {
     return res ? "true" : "false";
@@ -523,6 +526,195 @@ void autoTestBigIntModString()
         }
 }
 
+void testRationalConstructor()
+{
+        cout << CYAN "Testing Rational constructors" RESET << endl;
+
+        {
+            Rational a;
+            cout << GREEN "The result should be 0 / 1. " << BLUE "Result = " << a << RESET
+                 << endl;
+        }
+
+        {
+            Rational a(2, 8);
+            cout << GREEN "The result should be 1 / 4. " << BLUE "Result = " << a
+                 << RESET << endl;
+        }
+
+        {
+            Rational a(-2, 8);
+            cout << GREEN "The result should be -1 / 4. " << BLUE "Result = " << a
+                 << RESET << endl;
+        }
+
+        {
+            Rational a(2, -8);
+            cout << GREEN "The result should be -1 / 4. " << BLUE "Result = " << a
+                 << RESET << endl;
+        }
+
+        {
+            Rational a(-2, -8);
+            cout << GREEN "The result should be 1 / 4. " << BLUE "Result = " << a
+                 << RESET << endl;
+        }
+
+        {
+            BigInt b(2), c(8);
+            Rational a(b, c);
+            cout << GREEN "The result should be 1 / 4. " << BLUE "Result = " << a
+                 << RESET << endl;
+        }
+
+        {
+            BigInt b(-2), c(8);
+            Rational a(b, c);
+            cout << GREEN "The result should be -1 / 4. " << BLUE "Result = " << a
+                 << RESET << endl;
+        }
+
+        {
+            BigInt b(2), c(-8);
+            Rational a(b, c);
+            cout << GREEN "The result should be -1 / 4. " << BLUE "Result = " << a
+                 << RESET << endl;
+        }
+
+        {
+            BigInt b(-2), c(-8);
+            Rational a(b, c);
+            cout << GREEN "The result should be 1 / 4. " << BLUE "Result = " << a
+                 << RESET << endl;
+        }
+
+        cout << endl;
+}
+
+void testRationalAddition()
+{
+    cout << CYAN "Testing Rational addition" RESET << endl;
+
+    {
+        Rational a(2, 8), b(12, 16);
+        cout << GREEN "The result should be 1 / 1. " << BLUE "Result = " << a + b
+             << RESET << endl;
+    }
+
+    {
+        Rational a(2, 8), b(-12, 16);
+        cout << GREEN "The result should be -1 / 2. " << BLUE "Result = " << a + b
+             << RESET << endl;
+    }
+
+    {
+        Rational a(-2, 8), b(12, 16);
+        cout << GREEN "The result should be 1 / 2. " << BLUE "Result = " << a + b
+             << RESET << endl;
+    }
+
+    {
+        Rational a(-2, 8), b(-12, 16);
+        cout << GREEN "The result should be -1 / 1. " << BLUE "Result = " << a + b
+             << RESET << endl;
+    }
+
+    cout << endl;
+}
+
+void testRationalSubtraction()
+{
+    cout << CYAN "Testing Rational subtraction" RESET << endl;
+
+    {
+        Rational a(2, 8), b(12, 16);
+        cout << GREEN "The result should be -1 / 2. " << BLUE "Result = " << a - b
+             << RESET << endl;
+    }
+
+    {
+        Rational a(2, 8), b(-12, 16);
+        cout << GREEN "The result should be 1 / 1. " << BLUE "Result = " << a - b
+             << RESET << endl;
+    }
+
+    {
+        Rational a(-2, 8), b(12, 16);
+        cout << GREEN "The result should be -1 / 1. " << BLUE "Result = " << a - b
+             << RESET << endl;
+    }
+
+    {
+        Rational a(-2, 8), b(-12, 16);
+        cout << GREEN "The result should be 1 / 2. " << BLUE "Result = " << a - b
+             << RESET << endl;
+    }
+
+    cout << endl;
+}
+
+void testRationalMultiplication()
+{
+    cout << CYAN "Testing Rational multiplication" RESET << endl;
+
+    {
+        Rational a(2, 8), b(12, 16);
+        cout << GREEN "The result should be 3 / 16. " << BLUE "Result = " << a * b
+             << RESET << endl;
+    }
+
+    {
+        Rational a(2, 8), b(-12, 16);
+        cout << GREEN "The result should be -3 / 16. " << BLUE "Result = " << a * b
+             << RESET << endl;
+    }
+
+    {
+        Rational a(-2, 8), b(12, 16);
+        cout << GREEN "The result should be -3 / 16. " << BLUE "Result = " << a * b
+             << RESET << endl;
+    }
+
+    {
+        Rational a(-2, 8), b(-12, 16);
+        cout << GREEN "The result should be 3 / 16. " << BLUE "Result = " << a * b
+             << RESET << endl;
+    }
+
+    cout << endl;
+}
+
+void testRationalDivision()
+{
+    cout << CYAN "Testing Rational division" RESET << endl;
+
+    {
+        Rational a(2, 8), b(12, 8);
+        cout << GREEN "The result should be 1 / 6. " << BLUE "Result = " << a / b
+             << RESET << endl;
+    }
+
+    {
+        Rational a(2, 8), b(-12, 8);
+        cout << GREEN "The result should be -1 / 6. " << BLUE "Result = " << a / b
+             << RESET << endl;
+    }
+
+    {
+        Rational a(-2, 8), b(12, 8);
+        cout << GREEN "The result should be -1 / 6. " << BLUE "Result = " << a / b
+             << RESET << endl;
+    }
+
+    {
+        Rational a(-2, 8), b(-12, 8);
+        cout << GREEN "The result should be 1 / 6. " << BLUE "Result = " << a / b
+             << RESET << endl;
+    }
+
+    cout << endl;
+}
+
 int main()
 {
     cout << "Project 5" << endl;
@@ -533,26 +725,32 @@ int main()
     }
 #endif
 
-    testBigIntConstructors();
-    testBigIntComparators();
-    testBigIntAddition();
-    testBigIntSubtraction();
-    testBigIntMultiplication();
-    testBigIntDivision();
-    testBigIntMod();
+    // testBigIntConstructors();
+    // testBigIntComparators();
+    // testBigIntAddition();
+    // testBigIntSubtraction();
+    // testBigIntMultiplication();
+    // testBigIntDivision();
+    // testBigIntMod();
+    //
+    // autoTestBigIntAddition();
+    // autoTestBigIntSubtraction();
+    // autoTestBigIntMultiplication();
+    // autoTestBigIntDivision();
+    // autoTestBigIntMod();
+    // autoTestBigIntFactorial();
+    //
+    // autoTestBigIntAdditionString();
+    // autoTestBigIntSubtractionString();
+    // autoTestBigIntMultiplicationString();
+    // autoTestBigIntDivisionString();
+    // autoTestBigIntModString();
 
-    autoTestBigIntAddition();
-    autoTestBigIntSubtraction();
-    autoTestBigIntMultiplication();
-    autoTestBigIntDivision();
-    autoTestBigIntMod();
-    autoTestBigIntFactorial();
-
-    autoTestBigIntAdditionString();
-    autoTestBigIntSubtractionString();
-    autoTestBigIntMultiplicationString();
-    autoTestBigIntDivisionString();
-    autoTestBigIntModString();
+    testRationalConstructor();
+    testRationalAddition();
+    testRationalSubtraction();
+    testRationalMultiplication();
+    testRationalDivision();
 
     return 0;
 }
