@@ -43,7 +43,20 @@ BigInt::BigInt(string number)
 BigInt::BigInt(vector<int> &newData, bool newIsNegative)
 {
     this->data = newData;
-    this->isNegative = newIsNegative;
+    // trim leading zero
+    for (int i = (int)this->data.size() - 1; i >= 0; i--) {
+        if (data[i] == 0)
+            data.pop_back();
+        else
+            break;
+    }
+
+    if (data.size() == 0) {
+        data.push_back(0);
+        this->isNegative = false;
+    } else {
+        this->isNegative = newIsNegative;
+    }
 }
 
 const BigInt BigInt::operator=(const BigInt &other) const
@@ -132,7 +145,27 @@ const BigInt BigInt::operator-(const BigInt &other) const
     }
 }
 
-// const BigInt BigInt::operator*(const BigInt &other) const;
+const BigInt BigInt::operator*(const BigInt &other) const
+{
+    int sign = (this->isNegative == other.isNegative) ? false : true;
+
+    int mx = 2 * max(this->data.size(), other.data.size());
+    vector<int> res(mx, 0);
+    for (int i = 0; i < (int)this->data.size(); i++)
+        for (int j = 0; j < (int)other.data.size(); j++)
+            res[i + j] += this->data[i] * other.data[j];
+
+    for (int i = 0; i < mx - 1; i++) {
+        res[i + 1] += res[i] / 10;
+        res[i] %= 10;
+    }
+#if DEBUG > 0
+    assert(res[mx - 1] < 10);
+#endif
+
+    return BigInt(res, sign);
+}
+
 // const BigInt BigInt::operator/(const BigInt &other) const;
 // const BigInt BigInt::operator%(const BigInt &other) const;
 
@@ -201,4 +234,4 @@ string BigInt::toString() const
 
     return res;
 }
-}
+} // namespace BigIntNamespace

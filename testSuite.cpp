@@ -115,6 +115,8 @@ void testBigIntComparators()
 
 void testBigIntAddition()
 {
+    cout << CYAN "Testing BigInt addition" RESET << endl;
+
     {
         BigInt a(123), b(1234567);
         cout << GREEN "123 + 1234567 = 1234690. " << BLUE "Result = " << a + b
@@ -138,33 +140,76 @@ void testBigIntAddition()
         cout << GREEN "123 + -1234567 = -1234444. " << BLUE "Result = " << a + b
              << RESET << endl;
     }
+
+    cout << endl;
 }
 
 void testBigIntSubtraction()
 {
+    cout << CYAN "Testing BigInt subtraction" RESET << endl;
+
     {
         BigInt a(123), b(1234567);
-        cout << GREEN "123 - 1234567 = -1234444. " << BLUE "Result = " << a - b
-             << RESET << endl;
+        cout << GREEN "123 - 1234567 = -1234444. " << BLUE "Result = " << RESET
+             << a - b << endl;
     }
 
     {
         BigInt a(-123), b(-1234567);
-        cout << GREEN "-123 - -1234567 = 1234444. " << BLUE "Result = " << a - b
-             << RESET << endl;
+        cout << GREEN "-123 - -1234567 = 1234444. " << BLUE "Result = " << RESET
+             << a - b << endl;
     }
 
     {
         BigInt a(-123), b(1234567);
-        cout << GREEN "-123 - 1234567 = -1234690. " << BLUE "Result = " << a - b
-             << RESET << endl;
+        cout << GREEN "-123 - 1234567 = -1234690. " << BLUE "Result = " << RESET
+             << a - b << endl;
     }
 
     {
         BigInt a(123), b(-1234567);
-        cout << GREEN "123 - -1234567 = 1234690. " << BLUE "Result = " << a - b
-             << RESET << endl;
+        cout << GREEN "123 - -1234567 = 1234690. " << BLUE "Result = " << RESET
+             << a - b << endl;
     }
+
+    cout << endl;
+}
+
+void testBigIntMultiplication()
+{
+    cout << CYAN "Testing BigInt multiplication" RESET << endl;
+
+    {
+        BigInt a(123), b(1234567);
+        cout << GREEN "123 * 1234567 = 151851741. " << BLUE "Result = " << RESET
+             << a * b << endl;
+    }
+
+    {
+        BigInt a(-123), b(-1234567);
+        cout << GREEN "-123 * -1234567 = 151851741. " << BLUE "Result = " << RESET
+             << a * b << endl;
+    }
+
+    {
+        BigInt a(-123), b(1234567);
+        cout << GREEN "-123 * 1234567 = -151851741. " << BLUE "Result = " << RESET
+             << a * b << endl;
+    }
+
+    {
+        BigInt a(123), b(-1234567);
+        cout << GREEN "123 * -1234567 = -151851741. " << BLUE "Result = " << RESET
+             << a * b << endl;
+    }
+
+    {
+        BigInt a(0), b(-1234567);
+        cout << GREEN "0 * -1234567 = 0. " << BLUE "Result = " << RESET
+             << a * b << endl;
+    }
+
+    cout << endl;
 }
 
 int main()
@@ -181,6 +226,7 @@ int main()
     testBigIntComparators();
     testBigIntAddition();
     testBigIntSubtraction();
+    testBigIntMultiplication();
 
     return 0;
 }

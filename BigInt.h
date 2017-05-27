@@ -44,5 +44,5 @@ private:
     const BigInt negate() const;
     string toString(int len) const;
 };
-}
+} // namespace BigIntNamespace
 #endif

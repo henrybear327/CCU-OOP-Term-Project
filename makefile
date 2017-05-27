@@ -7,8 +7,8 @@ normal: BigInt.o main.o
 debug: BigIntDebug.o mainDebug.o
 	g++ -Wall -Wextra -Wshadow -std=c++11 BigIntDebug.o mainDebug.o -o debug
 
-test: BigIntDebug.o testSuite.o
-	g++ -Wall -Wextra -Wshadow -std=c++11 BigIntDebug.o testSuite.o -o test
+test: BigInt.o testSuite.o
+	g++ -Wall -Wextra -Wshadow -std=c++11 BigInt.o testSuite.o -o test
 
 # dependicies
 # debug versions
