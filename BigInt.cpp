@@ -92,7 +92,9 @@ const BigInt BigInt::operator+(const BigInt &other) const
                 sum += this->data[i];
             if (i < (int)other.data.size())
                 sum += other.data[i];
-            res.push_back(sum % 10 + carry);
+
+            sum += carry;
+            res.push_back(sum % 10);
             carry = sum / 10;
         }
 
@@ -173,8 +175,10 @@ const BigInt BigInt::operator/(const BigInt &other) const
     int sign = (this->isNegative == other.isNegative) ? false : true;
     vector<int> res;
 
+    // be aware about the negative BigInt screwing up the calculation later on
     BigInt otherPos = other;
     otherPos.isNegative = false;
+
     BigInt tmp(0);
     for (int i = this->data.size() - 1; i >= 0; i--) {
         tmp = tmp * BigInt(10) + BigInt(this->data[i]);
@@ -182,13 +186,11 @@ const BigInt BigInt::operator/(const BigInt &other) const
         for (int j = 1; j <= 10; j++) {
             BigInt scale = otherPos * BigInt(j);
 
-            // cout << scale << " " << tmp << endl;
             if (scale <= tmp)
                 continue;
             else {
                 res.push_back(j - 1);
                 tmp = tmp - otherPos * BigInt(j - 1);
-                // cout << "hey " << tmp << endl << endl;
                 break;
             }
         }
