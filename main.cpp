@@ -8,7 +8,7 @@ using namespace ComplexNamespace;
 
 int main()
 {
-    // cout << "Project 5" << endl;
+// cout << "Project 5" << endl;
 #ifdef DEBUG
     if (DEBUG > 0) {
         cout << RED "Debug mode is enabled" RESET << endl;
