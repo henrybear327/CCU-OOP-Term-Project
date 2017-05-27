@@ -1,6 +1,7 @@
 #ifndef BIGINT_H
 #define BIGINT_H
 
+#include <cassert>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -24,6 +25,7 @@ public:
     const BigInt operator*(const BigInt &other) const;
     const BigInt operator/(const BigInt &other) const;
     const BigInt operator%(const BigInt &other) const;
+    const BigInt operator=(const BigInt &other) const;
 
     bool operator<(const BigInt &other) const;
 
@@ -31,11 +33,15 @@ public:
 
     // member function
     BigInt factorial() const;
+    string toString() const;
 
 private:
+    BigInt(vector<int> &data, bool isNegative);
+
     bool isNegative;
     vector<int> data;
-    string toString() const;
+
+    const BigInt negate() const;
     string toString(int len) const;
 };
 }

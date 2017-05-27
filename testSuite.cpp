@@ -113,6 +113,60 @@ void testBigIntComparators()
     cout << endl;
 }
 
+void testBigIntAddition()
+{
+    {
+        BigInt a(123), b(1234567);
+        cout << GREEN "123 + 1234567 = 1234690. " << BLUE "Result = " << a + b
+             << RESET << endl;
+    }
+
+    {
+        BigInt a(-123), b(-1234567);
+        cout << GREEN "-123 + -1234567 = -1234690. " << BLUE "Result = " << a + b
+             << RESET << endl;
+    }
+
+    {
+        BigInt a(-123), b(1234567);
+        cout << GREEN "-123 + 1234567 = 1234444. " << BLUE "Result = " << a + b
+             << RESET << endl;
+    }
+
+    {
+        BigInt a(123), b(-1234567);
+        cout << GREEN "123 + -1234567 = -1234444. " << BLUE "Result = " << a + b
+             << RESET << endl;
+    }
+}
+
+void testBigIntSubtraction()
+{
+    {
+        BigInt a(123), b(1234567);
+        cout << GREEN "123 - 1234567 = -1234444. " << BLUE "Result = " << a - b
+             << RESET << endl;
+    }
+
+    {
+        BigInt a(-123), b(-1234567);
+        cout << GREEN "-123 - -1234567 = 1234444. " << BLUE "Result = " << a - b
+             << RESET << endl;
+    }
+
+    {
+        BigInt a(-123), b(1234567);
+        cout << GREEN "-123 - 1234567 = -1234690. " << BLUE "Result = " << a - b
+             << RESET << endl;
+    }
+
+    {
+        BigInt a(123), b(-1234567);
+        cout << GREEN "123 - -1234567 = 1234690. " << BLUE "Result = " << a - b
+             << RESET << endl;
+    }
+}
+
 int main()
 {
     cout << "Project 5" << endl;
@@ -125,6 +179,8 @@ int main()
 
     testBigIntConstructors();
     testBigIntComparators();
+    testBigIntAddition();
+    testBigIntSubtraction();
 
     return 0;
 }

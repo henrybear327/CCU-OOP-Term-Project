@@ -40,12 +40,101 @@ BigInt::BigInt(string number)
         data.push_back(number[i] - '0');
 }
 
+BigInt::BigInt(vector<int> &newData, bool newIsNegative)
+{
+    this->data = newData;
+    this->isNegative = newIsNegative;
+}
+
+const BigInt BigInt::operator=(const BigInt &other) const
+{
+    BigInt res;
+    res.isNegative = other.isNegative;
+    res.data = other.data;
+
+    return res;
+}
+
+const BigInt BigInt::negate() const
+{
+    BigInt res = *this;
+    res.isNegative = !isNegative;
+
+    return res;
+}
+
 // operator overloading
-// const BigInt operator+(const BigInt &other) const;
-// const BigInt operator-(const BigInt &other) const;
-// const BigInt operator*(const BigInt &other) const;
-// const BigInt operator/(const BigInt &other) const;
-// const BigInt operator%(const BigInt &other) const;
+const BigInt BigInt::operator+(const BigInt &other) const
+{
+    if (this->isNegative == other.isNegative) {
+        vector<int> res;
+        int mx = max(this->data.size(), other.data.size());
+
+        int carry = 0;
+        for (int i = 0; i < mx; i++) {
+            int sum = 0;
+            if (i < (int)this->data.size())
+                sum += this->data[i];
+            if (i < (int)other.data.size())
+                sum += other.data[i];
+            res.push_back(sum % 10 + carry);
+            carry = sum / 10;
+        }
+
+        if (carry)
+            res.push_back(carry);
+
+        return BigInt(res, this->isNegative);
+    } else {
+        if (this->isNegative) { // -5 + 3
+            return other - (*this).negate();
+        } else { // 3 + -5
+            return (*this) - other.negate();
+        }
+    }
+}
+
+const BigInt BigInt::operator-(const BigInt &other) const
+{
+    if (this->isNegative == other.isNegative) {
+        if (this->isNegative) { // -3 - -5 = -3 + 5
+            return *this + other.negate();
+        }
+
+        int len = max(this->data.size(), other.data.size());
+        if (*this < other)
+            return (other - *this).negate();
+
+        vector<int> res;
+        int borrow = 0;
+        for (int i = 0; i < len; i++) {
+            int diff = this->data[i] + borrow;
+            if (i < (int)other.data.size())
+                diff -= other.data[i];
+            if (diff < 0) {
+                borrow = -1;
+                diff += 10;
+            } else
+                borrow = 0;
+
+            res.push_back(diff);
+        }
+#if DEBUG > 0
+        assert(borrow == 0);
+#endif
+        return BigInt(res, false);
+    } else {
+        if (this->isNegative) { // -3 - 5
+            return ((*this).negate() + other).negate();
+        } else { // 3 - -5
+            return (*this + other.negate());
+        }
+    }
+}
+
+// const BigInt BigInt::operator*(const BigInt &other) const;
+// const BigInt BigInt::operator/(const BigInt &other) const;
+// const BigInt BigInt::operator%(const BigInt &other) const;
 
 string BigInt::toString(int len) const
 {
