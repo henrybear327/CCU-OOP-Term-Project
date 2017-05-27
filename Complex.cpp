@@ -50,8 +50,13 @@ const Complex Complex::operator/(const Complex &other) const
     Rational d = other.imaginary;
 
     Rational realPart(a * c + b * d);
+    // cout << "Done with realPart" << endl;
+
     Rational imaginaryPart(b * c - a * d);
+    // cout << "Done with imaginaryPart" << endl;
+
     Rational down(c * c + d * d);
+    // cout << "Done with down" << endl;
 
     return Complex(realPart / down, imaginaryPart / down);
 }
