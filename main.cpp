@@ -6,6 +6,9 @@ using namespace std;
 #include "BigInt.h"
 using namespace BigIntNamespace;
 
+#include "Rational.h"
+using namespace RationalNamespace;
+
 int main()
 {
     cout << "Project 5" << endl;
