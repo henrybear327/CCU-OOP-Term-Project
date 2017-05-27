@@ -42,16 +42,16 @@ Rational::Rational(BigInt a, BigInt b)
         numerator = numerator * BigInt(-1);
     denominator = b / g;
 }
-
-const BigInt Rational::getNumerator() const
-{
-    return numerator;
-}
-
-const BigInt Rational::getDenominator() const
-{
-    return denominator;
-}
+// 
+// const BigInt Rational::getNumerator() const
+// {
+//     return numerator;
+// }
+//
+// const BigInt Rational::getDenominator() const
+// {
+//     return denominator;
+// }
 
 bool Rational::isNegative() const
 {

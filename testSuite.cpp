@@ -10,6 +10,9 @@ using namespace BigIntNamespace;
 #include "Rational.h"
 using namespace RationalNamespace;
 
+#include "Complex.h"
+using namespace ComplexNamespace;
+
 inline string printTF(bool res)
 {
     return res ? "true" : "false";
@@ -715,6 +718,127 @@ void testRationalDivision()
     cout << endl;
 }
 
+void testComplexConstructor()
+{
+    cout << CYAN "Testing Complex constructors" RESET << endl;
+
+    {
+        Complex a;
+        cout << GREEN "The result should be (0 / 1) + (0 / 1) i. " << BLUE "Result = " << a
+             << RESET << endl;
+    }
+
+    {
+        Rational a(2, 8);
+        Rational b(3, 9);
+        Complex c(a, b);
+        cout << GREEN "The result should be (1 / 4) + (1 / 3) i. " << BLUE "Result = " << c
+             << RESET << endl;
+    }
+
+    {
+        Rational a(2, -8);
+        Rational b(3, 9);
+        Complex c(a, b);
+        cout << GREEN "The result should be (-1 / 4) + (1 / 3) i. " << BLUE "Result = " << c
+             << RESET << endl;
+    }
+
+    {
+        Rational a(2, 8);
+        Rational b(3, -9);
+        Complex c(a, b);
+        cout << GREEN "The result should be (1 / 4) - (1 / 3) i. " << BLUE "Result = " << c
+             << RESET << endl;
+    }
+
+    {
+        Rational a(2, -8);
+        Rational b(3, -9);
+        Complex c(a, b);
+        cout << GREEN "The result should be (-1 / 4) - (1 / 3) i. " << BLUE "Result = " << c
+             << RESET << endl;
+    }
+
+    cout << endl;
+}
+
+void testComplexAddition()
+{
+    cout << CYAN "Testing Complex addition" RESET << endl;
+
+    {
+        Rational a1(2, 8);
+        Rational b1(3, 9);
+        Complex c1(a1, b1);
+
+        Rational a2(2, 7);
+        Rational b2(4, 3);
+        Complex c2(a2, b2);
+        cout << GREEN "The result should be (15 / 28) + (5 / 3) i. " << BLUE "Result = " << c1 + c2
+             << RESET << endl;
+    }
+
+    cout << endl;
+}
+
+void testComplexSubtraction()
+{
+    cout << CYAN "Testing Complex subtraction" RESET << endl;
+
+    {
+        Rational a1(2, 8);
+        Rational b1(3, 9);
+        Complex c1(a1, b1);
+
+        Rational a2(2, 7);
+        Rational b2(4, 3);
+        Complex c2(a2, b2);
+        cout << GREEN "The result should be (-1 / 28) - (1 / 1) i. " << BLUE "Result = " << c1 - c2
+             << RESET << endl;
+    }
+
+    cout << endl;
+}
+
+void testComplexMultiplication()
+{
+    cout << CYAN "Testing Complex multiplication" RESET << endl;
+
+    {
+        Rational a1(2, 8);
+        Rational b1(3, 9);
+        Complex c1(a1, b1);
+
+        Rational a2(2, 7);
+        Rational b2(4, 3);
+        Complex c2(a2, b2);
+        cout << GREEN "The result should be (1 / 14) - (4 / 9) i. " << BLUE "Result = " << c1 * c2
+             << RESET << endl;
+    }
+
+    cout << endl;
+}
+
+void testComplexDivision()
+{
+    cout << CYAN "Testing Complex division" RESET << endl;
+
+    {
+        Rational a1(2, 8);
+        Rational b1(3, 9);
+        Complex c1(a1, b1);
+
+        Rational a2(2, 7);
+        Rational b2(4, 3);
+        Complex c2(a2, b2);
+        cout << GREEN "The result should be (91 / 328) - (21 / 164) i. " << BLUE "Result = " << c1 / c2
+             << RESET << endl;
+    }
+
+    cout << endl;
+}
+
 int main()
 {
     cout << "Project 5" << endl;
@@ -725,32 +849,38 @@ int main()
     }
 #endif
 
-    // testBigIntConstructors();
-    // testBigIntComparators();
-    // testBigIntAddition();
-    // testBigIntSubtraction();
-    // testBigIntMultiplication();
-    // testBigIntDivision();
-    // testBigIntMod();
-    //
-    // autoTestBigIntAddition();
-    // autoTestBigIntSubtraction();
-    // autoTestBigIntMultiplication();
-    // autoTestBigIntDivision();
-    // autoTestBigIntMod();
-    // autoTestBigIntFactorial();
-    //
-    // autoTestBigIntAdditionString();
-    // autoTestBigIntSubtractionString();
-    // autoTestBigIntMultiplicationString();
-    // autoTestBigIntDivisionString();
-    // autoTestBigIntModString();
+    testBigIntConstructors();
+    testBigIntComparators();
+    testBigIntAddition();
+    testBigIntSubtraction();
+    testBigIntMultiplication();
+    testBigIntDivision();
+    testBigIntMod();
+
+    autoTestBigIntAddition();
+    autoTestBigIntSubtraction();
+    autoTestBigIntMultiplication();
+    autoTestBigIntDivision();
+    autoTestBigIntMod();
+    autoTestBigIntFactorial();
+
+    autoTestBigIntAdditionString();
+    autoTestBigIntSubtractionString();
+    autoTestBigIntMultiplicationString();
+    autoTestBigIntDivisionString();
+    autoTestBigIntModString();
 
     testRationalConstructor();
     testRationalAddition();
     testRationalSubtraction();
     testRationalMultiplication();
     testRationalDivision();
+
+    testComplexConstructor();
+    testComplexAddition();
+    testComplexSubtraction();
+    testComplexMultiplication();
+    testComplexDivision();
 
     return 0;
 }

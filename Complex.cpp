@@ -44,14 +44,16 @@ const Complex Complex::operator*(const Complex &other) const
 
 const Complex Complex::operator/(const Complex &other) const
 {
-    Complex res;
+    Rational a = this->real;
+    Rational b = this->imaginary;
+    Rational c = other.real;
+    Rational d = other.imaginary;
 
-    BigInt a = this->real.getNumerator();
-    BigInt b = this->imaginary.getDenominator();
-    BigInt c = other.real.getNumerator();
-    BigInt d = other.imaginary.getDenominator();
+    Rational realPart(a * c + b * d);
+    Rational imaginaryPart(b * c - a * d);
+    Rational down(c * c + d * d);
 
-    return res;
+    return Complex(realPart / down, imaginaryPart / down);
 }
 
 Complex &Complex::operator=(const Complex &other)
