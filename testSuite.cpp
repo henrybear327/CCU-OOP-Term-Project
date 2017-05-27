@@ -299,6 +299,7 @@ void autoTestBigIntAddition()
             if (myStr != answerStr) {
                 cout << RED << i << " + " << j << " = " << answerStr << " != " << myStr
                      << RESET << endl;
+                exit(0);
             }
         }
 }
@@ -318,6 +319,7 @@ void autoTestBigIntSubtraction()
             if (myStr != answerStr) {
                 cout << RED << i << " - " << j << " = " << answerStr << " != " << myStr
                      << RESET << endl;
+                exit(0);
             }
         }
 }
@@ -337,6 +339,7 @@ void autoTestBigIntMultiplication()
             if (myStr != answerStr) {
                 cout << RED << i << " * " << j << " = " << answerStr << " != " << myStr
                      << RESET << endl;
+                exit(0);
             }
         }
 }
@@ -382,6 +385,113 @@ void autoTestBigIntMod()
             if (myStr != answerStr) {
                 cout << RED << i << " % " << j << " = " << answerStr << " != " << myStr
                      << RESET << endl;
+                exit(0);
+            }
+        }
+}
+
+void autoTestBigIntAdditionString()
+{
+    for (int i = -range; i <= range; i++)
+        for (int j = -range; j <= range; j++) {
+            if (abs(j) % 1000 == 0)
+                // cout << GREEN << (i < 0 ? "-" : " ") << abs(i) << " + " << (j < 0 ?
+                // "-" : " ") << abs(j) << endl;
+                printf(GREEN "%7d + %7d\n", i, j);
+
+            string myStr = (BigInt(to_string(i)) + BigInt(to_string(j))).toString();
+            string answerStr = to_string(i + j);
+
+            if (myStr != answerStr) {
+                cout << RED << i << " + " << j << " = " << answerStr << " != " << myStr
+                     << RESET << endl;
+                exit(0);
+            }
+        }
+}
+
+void autoTestBigIntSubtractionString()
+{
+    for (int i = -range; i <= range; i++)
+        for (int j = -range; j <= range; j++) {
+            if (abs(j) % 1000 == 0)
+                // cout << GREEN << (i < 0 ? "-" : " ") << abs(i) << " + " << (j < 0 ?
+                // "-" : " ") << abs(j) << endl;
+                printf(GREEN "%7d - %7d\n", i, j);
+
+            string myStr = (BigInt(to_string(i)) - BigInt(to_string(j))).toString();
+            string answerStr = to_string(i - j);
+
+            if (myStr != answerStr) {
+                cout << RED << i << " - " << j << " = " << answerStr << " != " << myStr
+                     << RESET << endl;
+                exit(0);
+            }
+        }
+}
+
+void autoTestBigIntMultiplicationString()
+{
+    for (int i = -range; i <= range; i++)
+        for (int j = -range; j <= range; j++) {
+            if (abs(j) % 1000 == 0)
+                // cout << GREEN << (i < 0 ? "-" : " ") << abs(i) << " + " << (j < 0 ?
+                // "-" : " ") << abs(j) << endl;
+                printf(GREEN "%7d * %7d\n", i, j);
+
+            string myStr = (BigInt(to_string(i)) * BigInt(to_string(j))).toString();
+            string answerStr = to_string(i * j);
+
+            if (myStr != answerStr) {
+                cout << RED << i << " * " << j << " = " << answerStr << " != " << myStr
+                     << RESET << endl;
+                exit(0);
+            }
+        }
+}
+
+void autoTestBigIntDivisionString()
+{
+    for (int i = -range; i <= range; i++)
+        for (int j = -range; j <= range; j++) {
+            if (j == 0)
+                continue;
+
+            if (abs(j) % 1000 == 0)
+                // cout << GREEN << (i < 0 ? "-" : " ") << abs(i) << " + " << (j < 0 ?
+                // "-" : " ") << abs(j) << endl;
+                printf(GREEN "%7d / %7d\n", i, j);
+
+            string myStr = (BigInt(to_string(i)) / BigInt(to_string(j))).toString();
+            string answerStr = to_string(i / j);
+
+            if (myStr != answerStr) {
+                cout << RED << i << " / " << j << " = " << answerStr << " != " << myStr
+                     << RESET << endl;
+                exit(0);
+            }
+        }
+}
+
+void autoTestBigIntModString()
+{
+    for (int i = -range; i <= range; i++)
+        for (int j = -range; j <= range; j++) {
+            if (j == 0)
+                continue;
+
+            if (abs(j) % 1000 == 0)
+                // cout << GREEN << (i < 0 ? "-" : " ") << abs(i) << " + " << (j < 0 ?
+                // "-" : " ") << abs(j) << endl;
+                printf(GREEN "%7d %% %7d\n", i, j);
+
+            string myStr = (BigInt(to_string(i)) % BigInt(to_string(j))).toString();
+            string answerStr = to_string(i % j);
+
+            if (myStr != answerStr) {
+                cout << RED << i << " % " << j << " = " << answerStr << " != " << myStr
+                     << RESET << endl;
+                exit(0);
             }
         }
 }
@@ -409,6 +519,12 @@ int main()
     autoTestBigIntMultiplication();
     autoTestBigIntDivision();
     autoTestBigIntMod();
+
+    autoTestBigIntAdditionString();
+    autoTestBigIntSubtractionString();
+    autoTestBigIntMultiplicationString();
+    autoTestBigIntDivisionString();
+    autoTestBigIntModString();
 
     return 0;
 }
