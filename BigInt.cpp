@@ -59,13 +59,15 @@ BigInt::BigInt(vector<int> &newData, bool newIsNegative)
     }
 }
 
-const BigInt BigInt::operator=(const BigInt &other) const
+BigInt &BigInt::operator=(const BigInt &other)
 {
-    BigInt res;
-    res.isNegative = other.isNegative;
-    res.data = other.data;
+    if (this == &other) // self, just return your self
+        return *this;
 
-    return res;
+    this->isNegative = other.isNegative;
+    this->data = other.data;
+
+    return *this;
 }
 
 // const BigInt BigInt::negate() const
@@ -166,7 +168,36 @@ const BigInt BigInt::operator*(const BigInt &other) const
     return BigInt(res, sign);
 }
 
-// const BigInt BigInt::operator/(const BigInt &other) const;
+const BigInt BigInt::operator/(const BigInt &other) const
+{
+    int sign = (this->isNegative == other.isNegative) ? false : true;
+    vector<int> res;
+
+    BigInt otherPos = other;
+    otherPos.isNegative = false;
+    BigInt tmp(0);
+    for (int i = this->data.size() - 1; i >= 0; i--) {
+        tmp = tmp * BigInt(10) + BigInt(this->data[i]);
+
+        for (int j = 1; j <= 10; j++) {
+            BigInt scale = otherPos * BigInt(j);
+
+            // cout << scale << " " << tmp << endl;
+            if (scale <= tmp)
+                continue;
+            else {
+                res.push_back(j - 1);
+                tmp = tmp - otherPos * BigInt(j - 1);
+                // cout << "hey " << tmp << endl << endl;
+                break;
+            }
+        }
+    }
+
+    reverse(res.begin(), res.end());
+    return BigInt(res, sign);
+}
+
 // const BigInt BigInt::operator%(const BigInt &other) const;
 const BigInt BigInt::operator-() const
 {
@@ -211,6 +242,27 @@ bool BigInt::operator<(const BigInt &other) const
             return otherBigInt < currentBigInt;
         } else { // + vs +
             return currentBigInt < otherBigInt;
+        }
+    } else {
+        if (this->isNegative == true) { // - vs +
+            return true;
+        } else { // + vs -
+            return false;
+        }
+    }
+}
+
+bool BigInt::operator<=(const BigInt &other) const
+{
+    int len = max((*this).data.size(), other.data.size());
+    string currentBigInt = (*this).toString(len);
+    string otherBigInt = other.toString(len);
+
+    if (this->isNegative == other.isNegative) {
+        if (this->isNegative == true) { // - vs -
+            return otherBigInt <= currentBigInt;
+        } else { // + vs +
+            return currentBigInt <= otherBigInt;
         }
     } else {
         if (this->isNegative == true) { // - vs +

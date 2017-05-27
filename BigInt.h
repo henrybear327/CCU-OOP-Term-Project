@@ -26,9 +26,11 @@ public:
     const BigInt operator/(const BigInt &other) const;
     const BigInt operator%(const BigInt &other) const;
     const BigInt operator-() const;
-    const BigInt operator=(const BigInt &other) const;
+    // const BigInt operator=(const BigInt &other) const; // wrong
+    BigInt &operator=(const BigInt &other);
 
     bool operator<(const BigInt &other) const;
+    bool operator<=(const BigInt &other) const;
 
     friend ostream &operator<<(ostream &out, const BigInt &other);
 

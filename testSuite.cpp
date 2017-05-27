@@ -212,6 +212,43 @@ void testBigIntMultiplication()
     cout << endl;
 }
 
+void testBigIntDivision()
+{
+    cout << CYAN "Testing BigInt division" RESET << endl;
+
+    {
+        BigInt a(123), b(1234567);
+        cout << GREEN "1234567 / 123 = 10037. " << BLUE "Result = " << RESET
+             << b / a << endl;
+    }
+
+    {
+        BigInt a(-123), b(-1234567);
+        cout << GREEN "-1234567 / -123 = 10037. " << BLUE "Result = " << RESET
+             << b / a << endl;
+    }
+
+    {
+        BigInt a(-123), b(1234567);
+        cout << GREEN "1234567 / -123 = -10037. " << BLUE "Result = " << RESET
+             << b / a << endl;
+    }
+
+    {
+        BigInt a(123), b(-1234567);
+        cout << GREEN "-1234567 / 123 = -10037. " << BLUE "Result = " << RESET
+             << b / a << endl;
+    }
+
+    {
+        BigInt a(1234567), b(0);
+        cout << GREEN "0 / 1234567 = 0. " << BLUE "Result = " << RESET
+             << b / a << endl;
+    }
+
+    cout << endl;
+}
+
 int main()
 {
     cout << "Project 5" << endl;
@@ -227,6 +264,7 @@ int main()
     testBigIntAddition();
     testBigIntSubtraction();
     testBigIntMultiplication();
+    testBigIntDivision();
 
     return 0;
 }
