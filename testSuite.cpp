@@ -205,8 +205,8 @@ void testBigIntMultiplication()
 
     {
         BigInt a(0), b(-1234567);
-        cout << GREEN "0 * -1234567 = 0. " << BLUE "Result = " << RESET
-             << a * b << endl;
+        cout << GREEN "0 * -1234567 = 0. " << BLUE "Result = " << RESET << a * b
+             << endl;
     }
 
     cout << endl;

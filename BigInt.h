@@ -25,6 +25,7 @@ public:
     const BigInt operator*(const BigInt &other) const;
     const BigInt operator/(const BigInt &other) const;
     const BigInt operator%(const BigInt &other) const;
+    const BigInt operator-() const;
     const BigInt operator=(const BigInt &other) const;
 
     bool operator<(const BigInt &other) const;
@@ -41,7 +42,7 @@ private:
     bool isNegative;
     vector<int> data;
 
-    const BigInt negate() const;
+    // const BigInt negate() const;
     string toString(int len) const;
 };
 } // namespace BigIntNamespace

@@ -68,13 +68,13 @@ const BigInt BigInt::operator=(const BigInt &other) const
     return res;
 }
 
-const BigInt BigInt::negate() const
-{
-    BigInt res = *this;
-    res.isNegative = !isNegative;
-
-    return res;
-}
+// const BigInt BigInt::negate() const
+// {
+//     BigInt res = *this;
+//     res.isNegative = !isNegative;
+//
+//     return res;
+// }
 
 // operator overloading
 const BigInt BigInt::operator+(const BigInt &other) const
@@ -100,9 +100,9 @@ const BigInt BigInt::operator+(const BigInt &other) const
         return BigInt(res, this->isNegative);
     } else {
         if (this->isNegative) { // -5 + 3
-            return other - (*this).negate();
+            return other - -(*this);
         } else { // 3 + -5
-            return (*this) - other.negate();
+            return (*this) - -other;
         }
     }
 }
@@ -111,12 +111,12 @@ const BigInt BigInt::operator-(const BigInt &other) const
 {
     if (this->isNegative == other.isNegative) {
         if (this->isNegative) { // -3 - -5 = -3 + 5
-            return *this + other.negate();
+            return *this + -other;
         }
 
         int len = max(this->data.size(), other.data.size());
         if (*this < other)
-            return (other - *this).negate();
+            return -(other - *this);
 
         vector<int> res;
         int borrow = 0;
@@ -138,9 +138,9 @@ const BigInt BigInt::operator-(const BigInt &other) const
         return BigInt(res, false);
     } else {
         if (this->isNegative) { // -3 - 5
-            return ((*this).negate() + other).negate();
+            return -(-(*this) + other);
         } else { // 3 - -5
-            return (*this + other.negate());
+            return (*this + -other);
         }
     }
 }
@@ -168,6 +168,13 @@ const BigInt BigInt::operator*(const BigInt &other) const
 
 // const BigInt BigInt::operator/(const BigInt &other) const;
 // const BigInt BigInt::operator%(const BigInt &other) const;
+const BigInt BigInt::operator-() const
+{
+    BigInt res = *this;
+    res.isNegative = !isNegative;
+
+    return res;
+}
 
 string BigInt::toString(int len) const
 {
