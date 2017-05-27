@@ -390,6 +390,33 @@ void autoTestBigIntMod()
         }
 }
 
+long long fac(int num)
+{
+    long long res = 1;
+    for (int i = 1; i <= num; i++) {
+        res *= i;
+    }
+    return res;
+}
+
+void autoTestBigIntFactorial()
+{
+    for (int i = 0; i < 20; i++) {
+        BigInt num(i);
+
+        string myStr = num.factorial().toString();
+        string answerStr = to_string(fac(i));
+
+        cout << GREEN << i << "!"
+             << " = " << answerStr << RESET << endl;
+        if (myStr != answerStr) {
+            cout << RED << i << "!"
+                 << " = " << answerStr << " != " << myStr << RESET << endl;
+            exit(0);
+        }
+    }
+}
+
 void autoTestBigIntAdditionString()
 {
     for (int i = -range; i <= range; i++)
@@ -519,6 +546,7 @@ int main()
     autoTestBigIntMultiplication();
     autoTestBigIntDivision();
     autoTestBigIntMod();
+    autoTestBigIntFactorial();
 
     autoTestBigIntAdditionString();
     autoTestBigIntSubtractionString();

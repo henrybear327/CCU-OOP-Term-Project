@@ -286,7 +286,14 @@ ostream &operator<<(ostream &out, const BigInt &other)
 }
 
 // member function
-// BigInt factorial() const;
+BigInt BigInt::factorial() const
+{
+    BigInt res(1);
+    for (BigInt i(1); i <= *this; i = i + BigInt(1)) {
+        res = res * i;
+    }
+    return res;
+}
 
 string BigInt::toString() const
 {
