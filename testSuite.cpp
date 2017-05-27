@@ -242,8 +242,41 @@ void testBigIntDivision()
 
     {
         BigInt a(1234567), b(0);
-        cout << GREEN "0 / 1234567 = 0. " << BLUE "Result = " << RESET
-             << b / a << endl;
+        cout << GREEN "0 / 1234567 = 0. " << BLUE "Result = " << RESET << b / a
+             << endl;
+    }
+
+    cout << endl;
+}
+
+void testBigIntMod()
+{
+    cout << CYAN "Testing BigInt mod" RESET << endl;
+
+    {
+        BigInt a(5), b(3);
+        cout << GREEN "5 % 3 = 2. " << BLUE "Result = " << RESET << a % b << endl;
+    }
+
+    {
+        BigInt a(-5), b(-3);
+        cout << GREEN "-5 % -3 = -2. " << BLUE "Result = " << RESET << a % b
+             << endl;
+    }
+
+    {
+        BigInt a(-5), b(3);
+        cout << GREEN "-5 % 3 = -2. " << BLUE "Result = " << RESET << a % b << endl;
+    }
+
+    {
+        BigInt a(5), b(-3);
+        cout << GREEN "5 % -3 = 2. " << BLUE "Result = " << RESET << a % b << endl;
+    }
+
+    {
+        BigInt a(0), b(5);
+        cout << GREEN "0 % 5 = 0. " << BLUE "Result = " << RESET << b / a << endl;
     }
 
     cout << endl;
@@ -265,6 +298,7 @@ int main()
     testBigIntSubtraction();
     testBigIntMultiplication();
     testBigIntDivision();
+    testBigIntMod();
 
     return 0;
 }

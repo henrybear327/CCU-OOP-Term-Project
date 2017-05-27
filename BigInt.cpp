@@ -70,7 +70,7 @@ BigInt &BigInt::operator=(const BigInt &other)
     return *this;
 }
 
-// const BigInt BigInt::negate() const
+// const BigInt BigInt::negate() const // replaced with overloading -
 // {
 //     BigInt res = *this;
 //     res.isNegative = !isNegative;
@@ -198,8 +198,12 @@ const BigInt BigInt::operator/(const BigInt &other) const
     return BigInt(res, sign);
 }
 
-// const BigInt BigInt::operator%(const BigInt &other) const;
-const BigInt BigInt::operator-() const
+const BigInt BigInt::operator%(const BigInt &other) const
+{
+    return *this - (*this / other) * other;
+}
+
+const BigInt BigInt::operator-() const // negation
 {
     BigInt res = *this;
     res.isNegative = !isNegative;
