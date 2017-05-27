@@ -7,8 +7,8 @@ DEBUGMODE=-DDEBUG=2
 normal: BigInt.o Rational.o Complex.o main.o
 	g++ -Wall -Wextra -Wshadow -std=c++11 -O2 BigInt.o Rational.o Complex.o main.o -o normal
 
-debug: BigIntDebug.o RationalDebug.o ComplexDebug.o mainDebug.o
-	g++ -Wall -Wextra -Wshadow -std=c++11 BigIntDebug.o RationalDebug.o ComplexDebug.o mainDebug.o -o debug
+debug: BigIntDebug.o RationalDebug.o ComplexDebug.o testSuite.o
+	g++ -Wall -Wextra -Wshadow -std=c++11 -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fstack-protector BigIntDebug.o RationalDebug.o ComplexDebug.o testSuite.o -o debug
 
 test: BigInt.o Rational.o Complex.o testSuite.o
 	g++ -Wall -Wextra -Wshadow -std=c++11 -O2 BigInt.o Rational.o Complex.o testSuite.o -o test
@@ -16,19 +16,19 @@ test: BigInt.o Rational.o Complex.o testSuite.o
 # dependicies
 # debug versions
 BigIntDebug.o: BigInt.h BigInt.cpp
-	g++ -Wall -Wextra -Wshadow -std=c++11 $(DEBUGMODE) -c BigInt.cpp -o BigIntDebug.o
+	g++ -Wall -Wextra -Wshadow -std=c++11 -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fstack-protector $(DEBUGMODE) -c BigInt.cpp -o BigIntDebug.o
 
 RationalDebug.o: Rational.h Rational.cpp
-	g++ -Wall -Wextra -Wshadow -std=c++11 $(DEBUGMODE) -c Rational.cpp -o RationalDebug.o
+	g++ -Wall -Wextra -Wshadow -std=c++11 -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fstack-protector $(DEBUGMODE) -c Rational.cpp -o RationalDebug.o
 
 ComplexDebug.o: Complex.h Complex.cpp
-	g++ -Wall -Wextra -Wshadow -std=c++11 $(DEBUGMODE) -c Complex.cpp -o ComplexDebug.o
+	g++ -Wall -Wextra -Wshadow -std=c++11 -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fstack-protector $(DEBUGMODE) -c Complex.cpp -o ComplexDebug.o
 
 mainDebug.o: main.cpp
-	g++ -Wall -Wextra -Wshadow -std=c++11 $(DEBUGMODE) -c main.cpp -o mainDebug.o
+	g++ -Wall -Wextra -Wshadow -std=c++11 -g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fstack-protector $(DEBUGMODE) -c main.cpp -o mainDebug.o
 
 testSuite.o: testSuite.cpp
-	g++ -Wall -Wextra -Wshadow -std=c++11 $(DEBUGMODE) -c testSuite.cpp -o testSuite.o
+	g++ -Wall -Wextra -Wshadow -std=c++11 -g $(DEBUGMODE) -c testSuite.cpp -o testSuite.o
 
 #normal versions
 BigInt.o: BigInt.h BigInt.cpp

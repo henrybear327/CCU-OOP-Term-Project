@@ -4,7 +4,6 @@
 #include <cassert>
 #include <iostream>
 #include <string>
-#include <vector>
 using namespace std;
 
 #include "color.h"
@@ -18,6 +17,7 @@ public:
     BigInt();
     BigInt(int number);
     BigInt(string number);
+    ~BigInt();
 
     // operator overloading
     const BigInt operator+(const BigInt &other) const;
@@ -40,10 +40,12 @@ public:
     string toString() const;
 
 private:
-    BigInt(vector<int> &data, bool isNegative);
+    BigInt(int *newData, int newSz, bool newIsNegative);
 
     bool isNegative;
-    vector<int> data;
+
+    int *data;
+    int sz;
 
     // const BigInt negate() const;
     string toString(int len) const;

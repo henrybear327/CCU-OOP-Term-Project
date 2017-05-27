@@ -101,7 +101,7 @@ void testBigIntComparators()
 
     {
         BigInt a(200), b(10000);
-        cout << GREEN "The result should be false (200 < 10000). "
+        cout << GREEN "The result should be true (200 < 10000). "
              << BLUE "Result = " << printTF((a < b)) << RESET << endl;
     }
 
@@ -881,6 +881,11 @@ int main()
     testComplexSubtraction();
     testComplexMultiplication();
     testComplexDivision();
+
+    // BigInt a(-10), b(-11);
+    // cout << a / b << endl;
+
+    // cout << a + b << endl;
 
     return 0;
 }

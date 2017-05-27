@@ -7,7 +7,9 @@ namespace BigIntNamespace
 BigInt::BigInt()
 {
     // set to 0
-    data.push_back(0);
+    sz = 1;
+    data = new int[sz];
+    data[0] = 0;
     isNegative = false;
 }
 
@@ -21,9 +23,18 @@ BigInt::BigInt(int number)
         isNegative = false;
     }
 
+    sz = 0;
+    int tmp = number;
     // get number
     do {
-        data.push_back(number % 10);
+        tmp /= 10;
+        sz++;
+    } while (tmp > 0);
+
+    data = new int[sz];
+    int idx = 0;
+    do {
+        data[idx++] = number % 10;
         number /= 10;
     } while (number > 0);
 }
@@ -35,26 +46,45 @@ BigInt::BigInt(string number)
     else
         isNegative = false;
 
+    sz = number.length() - (isNegative ? 1 : 0);
+    data = new int[sz];
+
     // get number
+    int idx = 0;
     for (int i = number.length() - 1; i >= (isNegative ? 1 : 0); i--)
-        data.push_back(number[i] - '0');
+        data[idx++] = number[i] - '0';
 }
 
-BigInt::BigInt(vector<int> &newData, bool newIsNegative)
+BigInt::~BigInt()
 {
-    this->data = newData;
+    // cout << "Free " << *this << " " << this << " " << data <<  endl;
+    // cout.flush();
+    delete[] data;
+}
+
+BigInt::BigInt(int *newData, int newSz, bool newIsNegative)
+{
     // trim leading zero
-    for (int i = (int)this->data.size() - 1; i >= 0; i--) {
-        if (data[i] == 0)
-            data.pop_back();
-        else
+    int ok = -1;
+    for (int i = newSz - 1; i >= 0; i--) {
+        if (newData[i] == 0)
+            continue;
+        else {
+            ok = i;
             break;
+        }
     }
 
-    if (data.size() == 0) {
-        data.push_back(0);
+    sz = ok + 1;
+    if (sz == 0) {
+        sz = 1;
+        data = new int[sz];
+        data[0] = 0;
         this->isNegative = false;
     } else {
+        data = new int[sz];
+        for (int i = 0; i < sz; i++)
+            data[i] = newData[i];
         this->isNegative = newIsNegative;
     }
 }
@@ -65,7 +95,11 @@ BigInt &BigInt::operator=(const BigInt &other)
         return *this;
 
     this->isNegative = other.isNegative;
-    this->data = other.data;
+    delete[] this->data;
+    this->sz = other.sz;
+    this->data = new int[this->sz];
+    for (int i = 0; i < this->sz; i++)
+        this->data[i] = other.data[i];
 
     return *this;
 }
@@ -82,26 +116,28 @@ BigInt &BigInt::operator=(const BigInt &other)
 const BigInt BigInt::operator+(const BigInt &other) const
 {
     if (this->isNegative == other.isNegative) {
-        vector<int> res;
-        int mx = max(this->data.size(), other.data.size());
+        int mx = max(this->sz, other.sz);
+        int res[mx + 1];
+        for (int i = 0; i < mx + 1; i++)
+            res[i] = 0;
 
         int carry = 0;
         for (int i = 0; i < mx; i++) {
             int sum = 0;
-            if (i < (int)this->data.size())
+            if (i < this->sz)
                 sum += this->data[i];
-            if (i < (int)other.data.size())
+            if (i < other.sz)
                 sum += other.data[i];
 
             sum += carry;
-            res.push_back(sum % 10);
+            res[i] = sum % 10;
             carry = sum / 10;
         }
 
         if (carry)
-            res.push_back(carry);
+            res[mx] = carry;
 
-        return BigInt(res, this->isNegative);
+        return BigInt(res, mx + 1, this->isNegative);
     } else {
         if (this->isNegative) { // -5 + 3
             return other - -(*this);
@@ -118,15 +154,18 @@ const BigInt BigInt::operator-(const BigInt &other) const
             return *this + -other;
         }
 
-        int len = max(this->data.size(), other.data.size());
+        int len = max(this->sz, other.sz);
         if (*this < other)
             return -(other - *this);
 
-        vector<int> res;
+        int res[len + 1];
+        for (int i = 0; i < len + 1; i++)
+            res[i] = 0;
+
         int borrow = 0;
         for (int i = 0; i < len; i++) {
             int diff = this->data[i] + borrow;
-            if (i < (int)other.data.size())
+            if (i < other.sz)
                 diff -= other.data[i];
             if (diff < 0) {
                 borrow = -1;
@@ -134,12 +173,12 @@ const BigInt BigInt::operator-(const BigInt &other) const
             } else
                 borrow = 0;
 
-            res.push_back(diff);
+            res[i] = diff;
         }
 #if DEBUG > 0
         assert(borrow == 0);
 #endif
-        return BigInt(res, false);
+        return BigInt(res, len + 1, false);
     } else {
         if (this->isNegative) { // -3 - 5
             return -(-(*this) + other);
@@ -153,10 +192,13 @@ const BigInt BigInt::operator*(const BigInt &other) const
 {
     int sign = (this->isNegative == other.isNegative) ? false : true;
 
-    int mx = 2 * max(this->data.size(), other.data.size());
-    vector<int> res(mx, 0);
-    for (int i = 0; i < (int)this->data.size(); i++)
-        for (int j = 0; j < (int)other.data.size(); j++)
+    int mx = 2 * max(this->sz, other.sz);
+    int res[mx];
+    for (int i = 0; i < mx; i++)
+        res[i] = 0;
+
+    for (int i = 0; i < (int)this->sz; i++)
+        for (int j = 0; j < (int)other.sz; j++)
             res[i + j] += this->data[i] * other.data[j];
 
     for (int i = 0; i < mx - 1; i++) {
@@ -167,37 +209,43 @@ const BigInt BigInt::operator*(const BigInt &other) const
     assert(res[mx - 1] < 10);
 #endif
 
-    return BigInt(res, sign);
+    return BigInt(res, mx, sign);
 }
 
 const BigInt BigInt::operator/(const BigInt &other) const
 {
     int sign = (this->isNegative == other.isNegative) ? false : true;
-    vector<int> res;
+    int res[this->sz];
+    for (int i = 0; i < this->sz; i++)
+        res[i] = 0;
 
     // be aware about the negative BigInt screwing up the calculation later on
-    BigInt otherPos = other;
+    BigInt otherPos;
+    otherPos = other; // WTF??!!
     otherPos.isNegative = false;
 
     BigInt tmp(0);
-    for (int i = this->data.size() - 1; i >= 0; i--) {
+    for (int i = this->sz - 1; i >= 0; i--) {
         tmp = tmp * BigInt(10) + BigInt(this->data[i]);
 
         for (int j = 1; j <= 10; j++) {
             BigInt scale = otherPos * BigInt(j);
+            // cout << i << " " << j << " " << scale << " " << tmp << endl;
 
             if (scale <= tmp)
                 continue;
             else {
-                res.push_back(j - 1);
+                // cout << "j = " << j - 1 << endl;
+                res[i] = (j - 1);
+                // cout << tmp << " " << otherPos * BigInt(j - 1) << endl;
                 tmp = tmp - otherPos * BigInt(j - 1);
+                // cout << tmp << endl;
                 break;
             }
         }
     }
 
-    reverse(res.begin(), res.end());
-    return BigInt(res, sign);
+    return BigInt(res, this->sz, sign);
 }
 
 const BigInt BigInt::operator%(const BigInt &other) const
@@ -207,7 +255,8 @@ const BigInt BigInt::operator%(const BigInt &other) const
 
 const BigInt BigInt::operator-() const // negation
 {
-    BigInt res = *this;
+    BigInt res;
+    res = *this;
     res.isNegative = !isNegative;
 
     return res;
@@ -225,9 +274,9 @@ string BigInt::toString(int len) const
     */
     string res = "";
 
-    for (int i = 0; i < len - (int)data.size(); i++)
+    for (int i = 0; i < len - sz; i++)
         res += "0";
-    for (int i = data.size() - 1; i >= 0; i--)
+    for (int i = sz - 1; i >= 0; i--)
         res += data[i] + '0';
 
 #if DEBUG == 2
@@ -239,7 +288,7 @@ string BigInt::toString(int len) const
 
 bool BigInt::operator<(const BigInt &other) const
 {
-    int len = max((*this).data.size(), other.data.size());
+    int len = max((*this).sz, other.sz);
     string currentBigInt = (*this).toString(len);
     string otherBigInt = other.toString(len);
 
@@ -260,7 +309,7 @@ bool BigInt::operator<(const BigInt &other) const
 
 bool BigInt::operator<=(const BigInt &other) const
 {
-    int len = max((*this).data.size(), other.data.size());
+    int len = max((*this).sz, other.sz);
     string currentBigInt = (*this).toString(len);
     string otherBigInt = other.toString(len);
 
@@ -284,10 +333,10 @@ bool BigInt::operator==(const BigInt &other) const
     if (this->isNegative != other.isNegative)
         return false;
 
-    if (this->data.size() != other.data.size())
+    if (this->sz != other.sz)
         return false;
 
-    for (int i = 0; i < (int)this->data.size(); i++)
+    for (int i = 0; i < (int)this->sz; i++)
         if (this->data[i] != other.data[i])
             return false;
 
@@ -316,7 +365,7 @@ string BigInt::toString() const
 
     if (isNegative)
         res += '-';
-    for (int i = data.size() - 1; i >= 0; i--)
+    for (int i = sz - 1; i >= 0; i--)
         res += data[i] + '0';
 
     return res;
