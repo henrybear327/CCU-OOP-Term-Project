@@ -35,6 +35,7 @@ BigInt::BigInt(string number)
     else
         isNegative = false;
 
+    data.reserve(number.length() - (isNegative ? 1 : 0));
     // get number
     for (int i = number.length() - 1; i >= (isNegative ? 1 : 0); i--)
         data.push_back(number[i] - '0');
@@ -84,6 +85,7 @@ const BigInt BigInt::operator+(const BigInt &other) const
     if (this->isNegative == other.isNegative) {
         vector<int> res;
         int mx = max(this->data.size(), other.data.size());
+        res.reserve(mx + 1);
 
         int carry = 0;
         for (int i = 0; i < mx; i++) {
@@ -123,6 +125,8 @@ const BigInt BigInt::operator-(const BigInt &other) const
             return -(other - *this);
 
         vector<int> res;
+        res.reserve(len + 1);
+
         int borrow = 0;
         for (int i = 0; i < len; i++) {
             int diff = this->data[i] + borrow;
@@ -174,6 +178,7 @@ const BigInt BigInt::operator/(const BigInt &other) const
 {
     int sign = (this->isNegative == other.isNegative) ? false : true;
     vector<int> res;
+    res.reserve(this->data.size());
 
     // be aware about the negative BigInt screwing up the calculation later on
     BigInt otherPos = other;
