@@ -21,6 +21,7 @@ BigInt::BigInt(int number)
         isNegative = false;
     }
 
+    data.reserve(floor(log(10) + 1));
     // get number
     do {
         data.push_back(number % 10);
@@ -184,18 +185,26 @@ const BigInt BigInt::operator/(const BigInt &other) const
     BigInt otherPos = other;
     otherPos.isNegative = false;
 
+    BigInt scale[11];
+    scale[0] = BigInt(0);
+    for (int j = 1; j <= 10; j++) {
+        BigInt calculation = otherPos * BigInt(j);
+        scale[j] = calculation;
+    }
+
     BigInt tmp(0);
     for (int i = this->data.size() - 1; i >= 0; i--) {
         tmp = tmp * BigInt(10) + BigInt(this->data[i]);
 
         for (int j = 1; j <= 10; j++) {
-            BigInt scale = otherPos * BigInt(j);
+            // BigInt scale = otherPos * BigInt(j);
 
-            if (scale <= tmp)
+            if (scale[j] <= tmp)
                 continue;
             else {
                 res.push_back(j - 1);
-                tmp = tmp - otherPos * BigInt(j - 1);
+                // tmp = tmp - otherPos * BigInt(j - 1);
+                tmp = tmp - scale[j - 1];
                 break;
             }
         }
@@ -218,41 +227,37 @@ const BigInt BigInt::operator-() const // negation
     return res;
 }
 
-string BigInt::toString(int len) const
+bool unsignedCmpLessThan(const BigInt &a, const BigInt &b)
 {
-    /*
-    Converts the data vector in to a string with designated length.
+    if (a.data.size() != b.data.size())
+        return a.data.size() < b.data.size();
 
-    Notice that the sign is **ignored**.
+    for (int i = (int)a.data.size() - 1; i >= 0; i--)
+        if (a.data[i] != b.data[i])
+            return a.data[i] < b.data[i];
 
-    Leading zeros will be added to the start of the string if the len requested
-    is longer than data.size().
-    */
-    string res = "";
+    return false;
+}
 
-    for (int i = 0; i < len - (int)data.size(); i++)
-        res += "0";
-    for (int i = data.size() - 1; i >= 0; i--)
-        res += data[i] + '0';
+bool unsignedCmpLessThanOrEqualTo(const BigInt &a, const BigInt &b)
+{
+    if (a.data.size() != b.data.size())
+        return a.data.size() < b.data.size();
 
-#if DEBUG == 2
-    cout << YELLOW << res << RESET << endl;
-#endif
+    for (int i = (int)a.data.size() - 1; i >= 0; i--)
+        if (a.data[i] != b.data[i])
+            return a.data[i] < b.data[i];
 
-    return res;
+    return true;
 }
 
 bool BigInt::operator<(const BigInt &other) const
 {
-    int len = max((*this).data.size(), other.data.size());
-    string currentBigInt = (*this).toString(len);
-    string otherBigInt = other.toString(len);
-
     if (this->isNegative == other.isNegative) {
         if (this->isNegative == true) { // - vs -
-            return otherBigInt < currentBigInt;
+            return unsignedCmpLessThan(other, *this);
         } else { // + vs +
-            return currentBigInt < otherBigInt;
+            return unsignedCmpLessThan(*this, other);
         }
     } else {
         if (this->isNegative == true) { // - vs +
@@ -265,15 +270,11 @@ bool BigInt::operator<(const BigInt &other) const
 
 bool BigInt::operator<=(const BigInt &other) const
 {
-    int len = max((*this).data.size(), other.data.size());
-    string currentBigInt = (*this).toString(len);
-    string otherBigInt = other.toString(len);
-
     if (this->isNegative == other.isNegative) {
         if (this->isNegative == true) { // - vs -
-            return otherBigInt <= currentBigInt;
+            return unsignedCmpLessThanOrEqualTo(other, *this);
         } else { // + vs +
-            return currentBigInt <= otherBigInt;
+            return unsignedCmpLessThanOrEqualTo(*this, other);
         }
     } else {
         if (this->isNegative == true) { // - vs +
@@ -308,8 +309,8 @@ ostream &operator<<(ostream &out, const BigInt &other)
 // member function
 BigInt BigInt::factorial() const
 {
-    BigInt res(1);
-    for (BigInt i(1); i <= *this; i = i + BigInt(1)) {
+    BigInt res(1), one(1);
+    for (BigInt i(1); i <= *this; i = i + one) {
         res = res * i;
     }
     return res;

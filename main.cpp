@@ -13,6 +13,18 @@ int main()
     if (DEBUG > 0) {
         cout << RED "Debug mode is enabled" RESET << endl;
         cout << RED "Debug level is " << DEBUG << "" RESET << endl;
+
+        cout << Rational(1, 3) << endl;
+        cout << Rational(-6, 17) << endl;
+        cout << BigInt(81).factorial() << endl;
+        cout << BigInt(320).factorial() << endl;
+        cout << BigInt(128).factorial() << endl;
+        cout << BigInt(520).factorial() << endl;
+        cout << Rational(BigInt(81).factorial(), BigInt(320).factorial()) << endl;
+        cout << Rational(BigInt(128).factorial(), BigInt(520).factorial()) << endl;
+        cout << Complex(Rational(BigInt(81).factorial(), BigInt(320).factorial()),
+                        Rational(BigInt(128).factorial(), BigInt(520).factorial()))
+             << endl;
     }
 #endif
 

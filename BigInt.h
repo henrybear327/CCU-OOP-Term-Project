@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
 using namespace std;
 
 #include "color.h"
@@ -47,8 +48,8 @@ private:
     bool isNegative;
     vector<int> data;
 
-    // const BigInt negate() const;
-    string toString(int len) const;
+    friend bool unsignedCmpLessThan(const BigInt &a, const BigInt &b);
+    friend bool unsignedCmpLessThanOrEqualTo(const BigInt &a, const BigInt &b);
 };
 
 const BigInt gcd(const BigInt &a, const BigInt &b);

@@ -57,3 +57,6 @@ clear:
 	-rm *.orig
 	-rm *.gch
 	-rm a.out
+	-rm normal
+	-rm debug
+	-rm test
