@@ -1,6 +1,7 @@
 #ifndef BIGINT_H
 #define BIGINT_H
 
+#include <algorithm>
 #include <cassert>
 #include <iostream>
 #include <string>
@@ -26,6 +27,7 @@ public:
     const BigInt operator/(const BigInt &other) const;
     const BigInt operator%(const BigInt &other) const;
     const BigInt operator-() const;
+
     // const BigInt operator=(const BigInt &other) const; // wrong
     BigInt &operator=(const BigInt &other);
 
@@ -49,7 +51,8 @@ private:
     string toString(int len) const;
 };
 
-const BigInt gcd(const BigInt a, const BigInt b);
+const BigInt gcd(const BigInt &a, const BigInt &b);
 int gcd(const int a, const int b);
+
 } // namespace BigIntNamespace
 #endif

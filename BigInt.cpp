@@ -322,7 +322,7 @@ string BigInt::toString() const
     return res;
 }
 
-const BigInt gcd(const BigInt a, const BigInt b)
+const BigInt gcd(const BigInt &a, const BigInt &b)
 {
     return a == BigInt(0) ? b : gcd(b % a, a);
 }
