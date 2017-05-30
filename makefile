@@ -13,6 +13,9 @@ debug: BigIntDebug.o RationalDebug.o ComplexDebug.o mainDebug.o
 test: BigInt.o Rational.o Complex.o testSuite.o
 	g++ -Wall -Wextra -Wshadow -std=c++11 -O2 BigInt.o Rational.o Complex.o testSuite.o -o test
 
+clangMain: BigInt.cpp Rational.cpp Complex.cpp main.cpp
+	clang++ -emit-obj -fmath-errno  -fuse-init-array -momit-leaf-frame-pointer -dwarf-column-info -debug-info-kind=limited -dwarf-version=4 -debugger-tuning=gdb -O2 -Wall -Wno-unused -std=c++11 -fsanitize=address,alignment,array-bounds,bool,enum,float-cast-overflow,float-divide-by-zero,function,integer-divide-by-zero,nonnull-attribute,null,object-size,return,returns-nonnull-attribute,shift-base,shift-exponent,signed-integer-overflow,unreachable,vla-bound,vptr -fno-assume-sane-operator-new -fobjc-runtime=gcc -fno-common -fdiagnostics-show-option -fcolor-diagnostics -fvectorize BigInt.cpp Rational.cpp Complex.cpp main.cpp
+
 # dependicies
 # debug versions
 BigIntDebug.o: BigInt.h BigInt.cpp
