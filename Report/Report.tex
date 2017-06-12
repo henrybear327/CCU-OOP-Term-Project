@@ -46,14 +46,42 @@
 
     \section{Concurrent Development}
     
+    Concurrent development sounds good in theory, but in reality it's pretty hard to achieve.\\
+    
+    By defining all of the interfaces first, then starts writing code, we can divide the work among teammates. We can call the method even if it's not implemented yet, knowing that it'll eventually be working in the end.\\
+    
+    But, the sad thing is, teammates are procrastinating too much. No one was working on the project when I am already on it. So I decided to implement all interfaces and write a testbench. Testbench is a pretty good idea for making you confident that all of the code your teammate eventually turnin won't break the codebase, especially when they are under deadline pressure.
+    
     \section{What are the advatanges of OOP principles (encapsulation, inheritance, and polymorphism) used in this work?}
     
+    Encapsulation: The implementation details are hided from the user. When Rational class uses BigInt, it doesn't need to know, for example, how addition is implemented. All we need to know is how to correctly use it, e.g. how to invoke BigInt methods, what will be returned. The major advantage is that everybody just need to take care of their respective jobs, and trust the components that you use will give you the correct result.\\
+    
+    Inheritance: Not used.\\
+    
+    Polymorphism: Not used.
+    
+    \newpage
+    
     \section{What did you learn from this experience of team programming?}
+    
+    Testbench is pretty awesome! It gives you confidence as you develop and make modification to the code you wrote. Better yet, when your teammate turn in their code, you can test it using it and if all the tests passed you can be very certain that the code they wrote is correct.
     
     \section{Teammate Evaluation}
     
     \subsection{黃子俞}
     
+    Score: 10
+    
+    An average teammate. \\
+    
+    Accomplished tasks, but it's too close to deadline so there isn't a lot of time to discuss with him. \\
+    
     \subsection{童彥淇}
+    
+    Score: 10
+    
+    An average teammate. \\
+    
+    She's in charge of the BigInt part, which is the core of the entire program, but she started working on the day before deadline, which is a pretty bad idea.\\
 	
 \end{document}
