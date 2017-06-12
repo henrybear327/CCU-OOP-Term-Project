@@ -1,3 +1,11 @@
+/*
+Team 11
+曾俊宏
+403410033
+資工系
+大三
+*/
+
 #ifndef BIGINT_H
 #define BIGINT_H
 

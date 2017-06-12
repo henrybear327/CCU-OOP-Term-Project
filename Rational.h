@@ -1,3 +1,11 @@
+/*
+Team 11
+曾俊宏
+403410033
+資工系
+大三
+*/
+
 #ifndef RATIONAL_H
 #define RATIONAL_H
 

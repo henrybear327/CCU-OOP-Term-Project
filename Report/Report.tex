@@ -1,0 +1,59 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+% sudo easy_install Pygments
+% Add -shell-escape to compile flag
+
+% Options -> Editor -> Indentation mode -> replace tab by space!! -> avoids ^^I issue in code
+
+\documentclass[12pt, A4]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[linguistics]{forest}
+\usepackage{listings}
+
+%%%%%% Font setting %%%%%%
+
+\usepackage{fontspec} %加這個就可以設定字體 
+
+\usepackage{xeCJK} %讓中英文字體分開設置
+
+%\setCJKmainfont{Noto Sans CJK TC} %設定中文為系統上的字型，而英文不去更動，使用原TeX字型
+\setCJKmainfont{STKaiti}
+
+\XeTeXlinebreaklocale "zh" %這兩行一定要加，中文才能自動換行
+\XeTeXlinebreakskip = 0pt plus 1pt 
+
+%%%%%% Coding style %%%%%%
+\usepackage{minted}
+\usemintedstyle{friendly}
+\setminted[c]{
+    linenos=true,
+    autogobble=true,
+}
+
+\usepackage{hyperref}
+
+%%%%%% 文件正式開始 %%%%%%
+
+\title{Object-Oriented Programming\\ Assignment 5\\ Project}
+\author{403410033 \ 資工三 \ 曾俊宏}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	\newpage
+
+    \section{Concurrent Development}
+    
+    \section{What are the advatanges of OOP principles (encapsulation, inheritance, and polymorphism) used in this work?}
+    
+    \section{What did you learn from this experience of team programming?}
+    
+    \section{Teammate Evaluation}
+    
+    \subsection{黃子俞}
+    
+    \subsection{童彥淇}
+	
+\end{document}
